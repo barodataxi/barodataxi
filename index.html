@@ -15,7 +15,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="BARODATAXI offers one-way taxi, round-trip cab and Gujarat tour services from Vadodara. Call Nikhil Choudhri to book.">
 <title>BARODATAXI | One Way Cab, Round Trip & Gujarat Tours</title>
-<style>
+  <style>
+.booking-form {
+  max-width: 750px;
+  margin: auto;
+  background: white;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(7,26,53,.08);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.booking-form label {
+  display: block;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd5e1;
+  border-radius: 7px;
+  font-size: 16px;
+}
+.booking-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+.booking-form .full {
+  grid-column: 1 / -1;
+}
+.booking-form button {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  font-size: 17px;
+}
+@media(max-width:600px) {
+  .booking-form { grid-template-columns: 1fr; }
+  .booking-form .full { grid-column: auto; }
+}
 :root{--navy:#071a35;--blue:#123c72;--gold:#f5b82e;--light:#f4f7fb;--ink:#17243a}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
 header{background:var(--navy);color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -86,7 +129,96 @@ footer{background:#041126;color:#cbd5e1;text-align:center;padding:24px 5%;font-s
     <a class="btn primary" href="tel:+917990068132">Call Now</a>
   </div>
 </section>
-<section id="contact">
+<section id="booking" class="soft">
+  <div class="wrap">
+    <div class="section-title">
+      <h2>Book Your Taxi</h2>
+      <p>Fill in your trip details. We will contact you shortly.</p>
+    </div>
+
+    <form class="booking-form" id="bookingForm">
+      <div>
+        <label for="customerName">Your Name *</label>
+        <input id="customerName" type="text" required placeholder="Enter your name">
+      </div>
+
+      <div>
+        <label for="customerPhone">Mobile Number *</label>
+        <input id="customerPhone" type="tel" required
+          pattern="[6-9][0-9]{9}" maxlength="10"
+          placeholder="10-digit mobile number">
+      </div>
+
+      <div>
+        <label for="pickup">Pickup Location *</label>
+        <input id="pickup" type="text" required placeholder="Pickup city">
+      </div>
+
+      <div>
+        <label for="destination">Drop Location *</label>
+        <input id="destination" type="text" required placeholder="Destination city">
+      </div>
+
+      <div>
+        <label for="travelDate">Travel Date *</label>
+        <input id="travelDate" type="date" required>
+      </div>
+
+      <div>
+        <label for="pickupTime">Pickup Time</label>
+        <input id="pickupTime" type="time">
+      </div>
+
+      <div>
+        <label for="tripType">Trip Type *</label>
+        <select id="tripType" required>
+          <option value="">Select Trip Type</option>
+          <option>One Way</option>
+          <option>Round Trip</option>
+          <option>Local</option>
+          <option>Gujarat Tour</option>
+          <option>Corporate Booking</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="vehicle">Vehicle Required *</label>
+        <select id="vehicle" required>
+          <option value="">Select Vehicle</option>
+          <option>Swift Dzire</option>
+          <option>Ertiga</option>
+          <option>Innova Crysta</option>
+          <option>Tempo Traveller</option>
+          <option>Urbania</option>
+          <option>Bus</option>
+          <option>Any Available Vehicle</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="passengers">Number of Passengers *</label>
+        <input id="passengers" type="number" min="1" max="100" required placeholder="Passengers">
+      </div>
+
+      <div>
+        <label for="returnDate">Return Date (if applicable)</label>
+        <input id="returnDate" type="date">
+      </div>
+
+      <div class="full">
+        <label for="bookingMessage">Additional Details</label>
+        <textarea id="bookingMessage" placeholder="Please share any additional requirements"></textarea>
+      </div>
+
+      <div class="full">
+        <button type="submit" class="btn primary">
+          Submit Booking on WhatsApp
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+  <section id="contact">
   <div class="wrap">
     <div class="section-title"><h2>Contact BARODATAXI</h2><p>We’re ready to hear about your next trip.</p></div>
     <div class="contact-grid">
@@ -99,5 +231,49 @@ footer{background:#041126;color:#cbd5e1;text-align:center;padding:24px 5%;font-s
 </main>
 <footer>© <span id="year">2026</span> BARODATAXI. All rights reserved. <br>Taxi services for One Way, Round Trip and Gujarat Tours.</footer>
 <a class="float" href="https://wa.me/917990068132?text=Hello%20BARODATAXI%2C%20I%20want%20to%20book%20a%20taxi." aria-label="Book on WhatsApp">WhatsApp Booking</a>
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const pickup = document.getElementById("pickup").value.trim();
+  const destination = document.getElementById("destination").value.trim();
+  const date = document.getElementById("travelDate").value;
+  const time = document.getElementById("pickupTime").value || "Not specified";
+  const trip = document.getElementById("tripType").value;
+  const vehicle = document.getElementById("vehicle").value;
+  const passengers = document.getElementById("passengers").value;
+  const returnDate = document.getElementById("returnDate").value || "Not applicable";
+  const message = document.getElementById("bookingMessage").value.trim() || "None";
+
+  const whatsappMessage =
+`🚖 NEW TAXI BOOKING REQUEST
+BARODATAXI - VADODARA
+
+👤 Customer Name: ${name}
+📞 Mobile Number: ${phone}
+📍 Pickup: ${pickup}
+📍 Drop: ${destination}
+📅 Travel Date: ${date}
+🕒 Pickup Time: ${time}
+🔁 Trip Type: ${trip}
+🚘 Vehicle: ${vehicle}
+👥 Passengers: ${passengers}
+📅 Return Date: ${returnDate}
+📝 Additional Details: ${message}
+
+Please contact me with the fare and availability.`;
+
+  const whatsappURL =
+    "https://wa.me/917990068132?text=" +
+    encodeURIComponent(whatsappMessage);
+
+  window.location.href = whatsappURL;
+});
+
+document.getElementById("travelDate").min =
+  new Date().toISOString().split("T")[0];
+</script>
 </body>
 </html>
