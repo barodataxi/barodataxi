@@ -269,7 +269,26 @@ Please contact me with the fare and availability.`;
     "https://wa.me/917990068132?text=" +
     encodeURIComponent(whatsappMessage);
 
-  window.location.href = whatsappURL;
+  let redirected = false;
+
+function redirectToWhatsApp() {
+    if (redirected) return;
+    redirected = true;
+    window.location.href = whatsappURL;
+}
+
+if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+        'send_to': 'AW-18539980439/jT3jCKKY3K8dEJfNxohF',
+        'value': 1.0,
+        'currency': 'INR',
+        'event_callback': redirectToWhatsApp
+    });
+
+    setTimeout(redirectToWhatsApp, 1500);
+} else {
+    redirectToWhatsApp();
+}
 });
 
 document.getElementById("travelDate").min =
